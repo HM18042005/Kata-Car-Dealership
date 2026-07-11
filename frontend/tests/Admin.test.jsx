@@ -81,4 +81,49 @@ describe("Admin", () => {
     await waitFor(() => expect(screen.getByText("Vehicle created successfully.")).toBeInTheDocument());
     await waitFor(() => expect(searchCallCount).toBe(2));
   });
+
+  it("debounces search input and sends it as the make query param", async () => {
+    global.fetch = vi.fn().mockResolvedValue({ status: 200, ok: true, json: async () => [] });
+
+    renderAdmin();
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+
+    fireEvent.change(screen.getByLabelText(/search vehicles by make/i), { target: { value: "Toyota" } });
+
+    await waitFor(() =>
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining("make=Toyota"),
+        expect.anything()
+      )
+    );
+  });
+
+  it("sends the selected category as a query param", async () => {
+    global.fetch = vi.fn().mockResolvedValue({ status: 200, ok: true, json: async () => [] });
+
+    renderAdmin();
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+
+    fireEvent.change(screen.getByLabelText("Category"), { target: { value: "suv" } });
+
+    await waitFor(() =>
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining("category=suv"),
+        expect.anything()
+      )
+    );
+  });
+
+  it("shows a search-specific empty message when a search returns no results", async () => {
+    global.fetch = vi.fn().mockResolvedValue({ status: 200, ok: true, json: async () => [] });
+
+    renderAdmin();
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+
+    fireEvent.change(screen.getByLabelText(/search vehicles by make/i), { target: { value: "Toyota" } });
+
+    await waitFor(() =>
+      expect(screen.getByText("No vehicles match your search criteria.")).toBeInTheDocument()
+    );
+  });
 });

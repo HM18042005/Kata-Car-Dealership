@@ -1,18 +1,31 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
+import FilterPanel from "../components/FilterPanel";
 import VehicleTable from "../components/VehicleTable";
 import VehicleForm from "../components/VehicleForm";
 import Spinner from "../components/Spinner";
 import Toast from "../components/Toast";
 import Modal from "../components/Modal";
 import { useApi } from "../hooks/useApi";
+import { buildQueryString } from "../utils/buildQueryString";
 
 export default function Admin() {
   const [toast, setToast] = useState(null);
   const [modalState, setModalState] = useState({ isOpen: false, vehicle: null });
   const triggerRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filters, setFilters] = useState({});
+  const [query, setQuery] = useState("");
 
-  const { data: vehicles, loading, error, execute: fetchVehicles } = useApi("/api/vehicles/search?", { auto: true });
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setQuery(buildQueryString(searchTerm, filters));
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchTerm, filters]);
+
+  const { data: vehicles, loading, error, execute: fetchVehicles } = useApi(`/api/vehicles/search?${query}`, { auto: true });
   const { execute: createVehicle } = useApi("/api/vehicles", { method: "POST" });
   const { execute: updateVehicle } = useApi("/api/vehicles", { method: "PUT" });
   const { execute: deleteVehicleApi } = useApi("/api/vehicles", { method: "DELETE" });
@@ -84,17 +97,23 @@ export default function Admin() {
           </button>
         </div>
 
+        <section aria-label="Search and filters" className="mb-8 flex flex-col gap-4">
+          <SearchBar value={searchTerm} onChange={setSearchTerm} />
+          <FilterPanel filters={filters} onChange={setFilters} />
+        </section>
+
         <section aria-label="Vehicle inventory management">
           {error && <div className="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200 mb-6 font-medium">{error}</div>}
-          
+
           {loading && !vehicles ? (
             <Spinner />
           ) : (
-            <VehicleTable 
-              vehicles={vehicles || []} 
-              onEdit={openModal} 
-              onDelete={handleDelete} 
-              onRestock={handleRestock} 
+            <VehicleTable
+              vehicles={vehicles || []}
+              onEdit={openModal}
+              onDelete={handleDelete}
+              onRestock={handleRestock}
+              emptyMessage={searchTerm || Object.keys(filters).length ? "No vehicles match your search criteria." : "No vehicles in inventory."}
             />
           )}
         </section>
