@@ -63,9 +63,10 @@ export default function Dashboard() {
           {loading && !vehicles ? (
             <Spinner />
           ) : !vehicles || vehicles.length === 0 ? (
-            <EmptyState 
-              image={searchTerm || Object.keys(filters).length ? "/svgs/no-search-results.svg" : "/svgs/empty-inventory.svg"} 
-              message={searchTerm || Object.keys(filters).length ? "No vehicles match your search criteria." : "Our inventory is currently empty."} 
+            <EmptyState
+              image={searchTerm || Object.keys(filters).length ? "/svgs/no-search-results.svg" : "/svgs/empty-inventory.svg"}
+              alt={searchTerm || Object.keys(filters).length ? "No search results" : "Empty inventory"}
+              message={searchTerm || Object.keys(filters).length ? "No vehicles match your search criteria." : "Our inventory is currently empty."}
             />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

@@ -12,7 +12,7 @@ export default function VehicleCard({ vehicle, onPurchase }) {
           </div>
         )}
 
-        <div className="bg-slate-50 w-full h-40 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-50 transition-colors">
+        <div className="bg-slate-50 w-full h-40 rounded-lg flex items-center justify-center mb-6 group-hover:bg-teal-50 transition-colors">
           <img 
             src={`/svgs/${vehicle.category}.svg`} 
             alt="" 
@@ -21,7 +21,7 @@ export default function VehicleCard({ vehicle, onPurchase }) {
           />
         </div>
 
-        <div className="mb-1 text-sm font-medium text-blue-600 uppercase tracking-wider">{vehicle.category}</div>
+        <div className="mb-1 text-sm font-medium text-teal-600 uppercase tracking-wider">{vehicle.category}</div>
         <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2">{vehicle.make} {vehicle.model}</h3>
         
         <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
@@ -47,7 +47,7 @@ export default function VehicleCard({ vehicle, onPurchase }) {
           className={`w-full py-3 px-4 rounded-lg flex items-center justify-center gap-2 font-semibold transition-all ${
             isOutOfStock 
               ? "bg-slate-200 text-slate-500 cursor-not-allowed" 
-              : "bg-blue-600 text-white hover:bg-blue-700 shadow hover:shadow-md"
+              : "bg-teal-600 text-white hover:bg-teal-700 active:scale-[0.98] shadow hover:shadow-md"
           }`}
         >
           <img 

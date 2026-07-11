@@ -8,7 +8,7 @@ export default function NotFound() {
       <p className="text-lg text-slate-500 mb-8 max-w-md mx-auto font-medium">
         We can't seem to find the page you're looking for. It might have been removed or the link is broken.
       </p>
-      <Link to="/" className="bg-blue-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+      <Link to="/" className="bg-teal-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-teal-700 active:scale-[0.98] transition-all shadow-md hover:shadow-lg">
         Return to Dashboard
       </Link>
     </main>
