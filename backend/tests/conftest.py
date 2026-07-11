@@ -1,7 +1,7 @@
 import os
 from datetime import datetime, timezone
 
-os.environ.setdefault("SECRET_KEY", "test-secret-key")
+os.environ.setdefault("SECRET_KEY", "test-secret-key-that-is-at-least-32-bytes")
 os.environ.setdefault("MONGO_URI", "mongodb://localhost:27017/car_dealership_test")
 os.environ.setdefault("ADMIN_EMAIL", "admin@example.com")
 os.environ.setdefault("ADMIN_PASSWORD", "test-admin-password")
