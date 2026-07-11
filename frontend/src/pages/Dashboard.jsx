@@ -8,15 +8,7 @@ import EmptyState from "../components/EmptyState";
 import Toast from "../components/Toast";
 import ConfirmPurchaseModal from "../components/ConfirmPurchaseModal";
 import { useApi } from "../hooks/useApi";
-
-function buildQueryString(searchTerm, filters) {
-  const params = new URLSearchParams();
-  if (searchTerm) params.set("make", searchTerm);
-  if (filters.category) params.set("category", filters.category);
-  if (filters.minPrice) params.set("min_price", filters.minPrice);
-  if (filters.maxPrice) params.set("max_price", filters.maxPrice);
-  return params.toString();
-}
+import { buildQueryString } from "../utils/buildQueryString";
 
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("");
