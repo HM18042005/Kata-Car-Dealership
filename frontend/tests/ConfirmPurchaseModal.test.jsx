@@ -45,4 +45,14 @@ describe("ConfirmPurchaseModal", () => {
 
     expect(screen.getByRole("button", { name: /confirming/i })).toBeDisabled();
   });
+
+  it("disables the Cancel button and ignores Escape while loading", () => {
+    const onCancel = vi.fn();
+    render(<ConfirmPurchaseModal vehicle={vehicle} onConfirm={vi.fn()} onCancel={onCancel} loading={true} />);
+
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeDisabled();
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(onCancel).not.toHaveBeenCalled();
+  });
 });

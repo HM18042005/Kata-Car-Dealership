@@ -87,4 +87,30 @@ describe("Dashboard purchase confirmation", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(global.fetch).not.toHaveBeenCalledWith(expect.stringContaining("/purchase"), expect.anything());
   });
+
+  it("shows a failure toast and closes the modal when the purchase request fails", async () => {
+    global.fetch = vi.fn((url) => {
+      if (String(url).includes("/purchase")) {
+        return Promise.resolve({
+          status: 409,
+          ok: false,
+          json: async () => ({ detail: "Out of stock" }),
+        });
+      }
+      return Promise.resolve({
+        status: 200,
+        ok: true,
+        json: async () => [vehicle],
+      });
+    });
+
+    renderDashboard();
+
+    await screen.findByText("Toyota Corolla");
+    fireEvent.click(screen.getByRole("button", { name: "Purchase" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirm Purchase" }));
+
+    await waitFor(() => expect(screen.getByText("Failed to purchase vehicle.")).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+  });
 });

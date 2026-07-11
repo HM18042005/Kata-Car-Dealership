@@ -2,7 +2,7 @@ import Modal from "./Modal";
 
 export default function ConfirmPurchaseModal({ vehicle, onConfirm, onCancel, loading }) {
   return (
-    <Modal title="Confirm Purchase" onClose={onCancel}>
+    <Modal title="Confirm Purchase" onClose={loading ? () => {} : onCancel}>
       <p className="text-slate-700 mb-4">
         You're about to purchase this vehicle. One unit will be reserved for you.
       </p>
@@ -15,7 +15,8 @@ export default function ConfirmPurchaseModal({ vehicle, onConfirm, onCancel, loa
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 py-3 px-4 rounded-lg font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all"
+          disabled={loading}
+          className="flex-1 py-3 px-4 rounded-lg font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
         >
           Cancel
         </button>
