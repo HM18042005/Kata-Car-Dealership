@@ -5,6 +5,7 @@ A full-stack Car Dealership Inventory System built with **FastAPI + React + Mong
 The project was built test-first (TDD, Red → Green → Refactor) with a fully documented, transparent AI-assisted workflow — see [My AI Usage](#my-ai-usage) below.
 
 **Repository:** https://github.com/HM18042005/Kata-Car-Dealership
+**Live Demo:** https://kata-car-dealership.vercel.app
 
 ---
 
