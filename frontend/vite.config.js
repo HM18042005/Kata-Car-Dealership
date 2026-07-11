@@ -4,8 +4,16 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    // Dev-only: forward API calls to the FastAPI backend so the SPA's
+    // relative `/api/...` paths work without CORS during development.
+    proxy: {
+      "/api": "http://localhost:8000",
+    },
+  },
   test: {
     environment: "jsdom",
     setupFiles: ["./tests/setup.js"],
+    globals: true,
   },
 });

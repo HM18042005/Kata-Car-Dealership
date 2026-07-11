@@ -107,9 +107,10 @@ export default function Admin() {
             <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Inventory Management</h1>
             <p className="text-slate-500 text-lg font-medium">Add, edit, delete, and restock vehicles.</p>
           </div>
-          <button 
+          <button
+            type="button"
             ref={triggerRef}
-            onClick={() => openModal()} 
+            onClick={() => openModal()}
             className="flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all shadow hover:shadow-md"
           >
             <img src="/svgs/plus.svg" alt="" aria-hidden="true" className="w-5 h-5 invert" />
@@ -146,10 +147,11 @@ export default function Admin() {
               <h2 id="modal-title" className="text-xl font-bold text-slate-900">
                 {modalState.vehicle ? "Edit Vehicle" : "Add New Vehicle"}
               </h2>
-              <button 
-                onClick={closeModal} 
-                aria-label="Close modal" 
-                className="p-2 hover:bg-slate-200 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600"
+              <button
+                type="button"
+                onClick={closeModal}
+                aria-label="Close modal"
+                className="p-2 hover:bg-slate-200 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
               >
                 <img src="/svgs/close.svg" alt="" aria-hidden="true" className="w-5 h-5 opacity-60" />
               </button>

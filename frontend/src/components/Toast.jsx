@@ -15,7 +15,7 @@ export default function Toast({ type, message, onClose }) {
       <img src={`/svgs/${icon}`} className="w-5 h-5 invert" aria-hidden="true" alt="" />
       <p className="text-sm font-medium">{message}</p>
       {onClose && (
-        <button onClick={onClose} aria-label="Close" className="ml-4 opacity-75 hover:opacity-100 transition-opacity">
+        <button type="button" onClick={onClose} aria-label="Close" className="ml-4 opacity-75 hover:opacity-100 transition-opacity">
           <img src="/svgs/close.svg" className="w-4 h-4 invert" aria-hidden="true" alt="" />
         </button>
       )}

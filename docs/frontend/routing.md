@@ -80,6 +80,7 @@ Use `replace` on both `<Navigate>` redirects.
 |---|---|
 | Unauthenticated user hits `/` (or any future `RequireAuth` route) | `/login` |
 | Authenticated non-admin user hits `/admin` | `/` |
+| Already-authenticated user hits `/login` or `/register` | `/` |
 | Successful login submit | `/` |
 
 On successful login, call `navigate("/", { replace: true })` after storing

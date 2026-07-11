@@ -104,11 +104,14 @@ search results.
 Ephemeral status message for success/error feedback after a mutation
 (create, update, delete, purchase, restock).
 
-**Props:** `{ type, message }`
+**Props:** `{ type, message, onClose? }`
 
 - `type` — `"success" | "error"`, maps to `design-system.md`'s
   `green-600`/`red-600` tokens.
 - `message` — text shown.
+- `onClose` — optional dismiss callback. When provided, Toast auto-dismisses
+  after 3s and renders a close button wired to it; the page owner passes
+  `onClose={() => setToast(null)}`.
 
 ## Pages
 
