@@ -71,7 +71,7 @@ export default function Admin() {
         setToast({ type: "success", message: "Vehicle created successfully." });
       }
       closeModal();
-      fetchVehicles();
+      fetchVehicles().catch(() => {});
     } catch (err) {
       setToast({ type: "error", message: "Failed to save vehicle." });
     }
@@ -82,7 +82,7 @@ export default function Admin() {
     try {
       await deleteVehicleApi({ path: `/api/vehicles/${id}` });
       setToast({ type: "success", message: "Vehicle deleted." });
-      fetchVehicles();
+      fetchVehicles().catch(() => {});
     } catch (err) {
       setToast({ type: "error", message: "Failed to delete vehicle." });
     }
@@ -92,7 +92,7 @@ export default function Admin() {
     try {
       await restockVehicle({ path: `/api/vehicles/${id}/restock`, body: { amount } });
       setToast({ type: "success", message: `Restocked ${amount} units.` });
-      fetchVehicles();
+      fetchVehicles().catch(() => {});
     } catch (err) {
       setToast({ type: "error", message: "Failed to restock vehicle." });
     }
