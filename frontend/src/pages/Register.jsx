@@ -16,9 +16,13 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await execute({ body: { email, password } });
-    if (!error && data !== undefined) {
-      navigate("/login");
+    try {
+      const data = await execute({ body: { email, password } });
+      if (!error && data !== undefined) {
+        navigate("/login");
+      }
+    } catch {
+      // error state is already set by useApi; nothing else to do here
     }
   };
 

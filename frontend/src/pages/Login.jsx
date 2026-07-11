@@ -16,10 +16,14 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await execute({ body: { email, password } });
-    if (data?.access_token) {
-      login(data.access_token);
-      navigate("/", { replace: true });
+    try {
+      const data = await execute({ body: { email, password } });
+      if (data?.access_token) {
+        login(data.access_token);
+        navigate("/", { replace: true });
+      }
+    } catch {
+      // error state is already set by useApi; nothing else to do here
     }
   };
 
