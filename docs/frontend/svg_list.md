@@ -1,8 +1,9 @@
 # SVG / Image List — Car Dealership Frontend
 
-List only — nothing generated yet. Most UI icons below should come from an
-installed icon library (e.g. lucide-react / heroicons) rather than hand-made
-SVGs; only branding and illustrations need custom assets.
+All 39 SVG files (38 entries; eye/eye-off share one row) were hand-authored
+as custom SVGs in `frontend/svgs/` — see `docs/frontend/design-system.md`
+for the icon conventions. An icon library (e.g. lucide-react / heroicons)
+remains the fallback if the set ever needs to grow quickly.
 
 ## Branding (custom)
 
@@ -24,7 +25,7 @@ SVGs; only branding and illustrations need custom assets.
 | 9 | Van / Minivan | Category filter, vehicle card |
 | 10 | Electric (EV bolt) | Category filter, vehicle card |
 
-## UI icons (icon library)
+## UI icons
 
 | # | Asset | Used in |
 |---|-------|---------|
@@ -51,7 +52,7 @@ SVGs; only branding and illustrations need custom assets.
 | 31 | Dollar / price tag | Price display, price-range filter |
 | 32 | Layers / stock count | Quantity-in-stock display |
 
-## Illustrations & placeholders (custom or free asset)
+## Illustrations & placeholders
 
 | # | Asset | Used in |
 |---|-------|---------|

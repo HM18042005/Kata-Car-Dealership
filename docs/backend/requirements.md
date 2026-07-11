@@ -1,11 +1,11 @@
 # Backend — Car Dealership Inventory System
 
-Split from `context.md` (2026-07-10). Stack: FARMN backend portion (exact mapping TBD — confirm with user before implementation).
+Stack: FastAPI + MongoDB. See `architecture.md` for the backend layout.
 
 ## Requirements
 
-- RESTful API using the chosen FARMN technologies.
-- Persistent database (PostgreSQL, MongoDB, or SQLite) — in-memory is not sufficient.
+- RESTful API using FastAPI.
+- Persistent database (MongoDB chosen) — in-memory is not sufficient.
 - User registration and login.
 - Token-based auth (e.g. JWT) for protected endpoints.
 - Two roles: regular user and admin.
@@ -38,4 +38,5 @@ Unique ID, make, model, category, price, quantity in stock.
 
 - TDD: tests before implementation; visible Red-Green-Refactor story in commit history, especially for backend logic.
 - Meaningful behavior/edge-case tests, not coverage padding.
-- Open decisions: auth details, validation/error contract, how the first admin is created, testing tools, first RGR slice.
+- Auth and first-admin rules: `security.md`; validation/error contract:
+  `api.md` and `services.md`; testing strategy: `architecture.md`.

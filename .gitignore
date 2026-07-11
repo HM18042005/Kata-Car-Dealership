@@ -219,3 +219,7 @@ __marimo__/
 
 # Local project context
 /context.md
+
+# Local planning and review artifacts
+/.superpowers/
+/docs-private/

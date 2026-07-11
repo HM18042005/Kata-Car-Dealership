@@ -1,6 +1,6 @@
 # Frontend — Car Dealership Inventory System
 
-Split from `context.md` (2026-07-10). Stack: FARMN frontend portion (exact mapping TBD — confirm with user before implementation).
+Stack: React + Vite + Tailwind CSS.
 
 ## Requirements
 
@@ -14,9 +14,8 @@ Split from `context.md` (2026-07-10). Stack: FARMN frontend portion (exact mappi
 
 ## Assets
 
-- SVG/icon inventory: see `svg/svg_list.md`.
+- SVG/icon inventory: see `svg_list.md`.
 
-## Open decisions
+## Design references
 
-- UI direction and responsive design details.
-- Frontend framework choice within FARMN.
+Tokens and UI direction: `design-system.md`; responsive rules: `styling.md`.
