@@ -1,6 +1,7 @@
 fastapi
 uvicorn[standard]
 pymongo
+certifi
 pydantic[email]
 bcrypt<4.1
 pyjwt
