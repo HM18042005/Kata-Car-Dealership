@@ -43,7 +43,7 @@ export default function VehicleCard({ vehicle, onPurchase }) {
         <button
           type="button"
           disabled={isOutOfStock}
-          onClick={() => onPurchase(vehicle.id)}
+          onClick={() => onPurchase(vehicle)}
           className={`w-full py-3 px-4 rounded-lg flex items-center justify-center gap-2 font-semibold transition-all ${
             isOutOfStock 
               ? "bg-slate-200 text-slate-500 cursor-not-allowed" 
