@@ -225,3 +225,5 @@ __marimo__/
 /docs-private/
 /.agents
 /frontend/node_modules
+/graphify
+/graphify-out
