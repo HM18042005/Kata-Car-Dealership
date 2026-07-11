@@ -16,7 +16,7 @@ export default function FilterPanel({ filters, onChange }) {
           id="category"
           value={filters.category || ""}
           onChange={(e) => handleChange("category", e.target.value)}
-          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900"
+          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 text-slate-900"
         >
           <option value="">All Categories</option>
           {categories.map((cat) => (
@@ -27,8 +27,8 @@ export default function FilterPanel({ filters, onChange }) {
       
       <div className="w-full sm:w-1/3 flex flex-col gap-2">
         <label htmlFor="minPrice" className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
-          <img src="/svgs/dollar.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
-          Min Price
+          <img src="/svgs/rupee.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
+          Min Price (₹)
         </label>
         <input
           id="minPrice"
@@ -37,14 +37,14 @@ export default function FilterPanel({ filters, onChange }) {
           value={filters.minPrice || ""}
           onChange={(e) => handleChange("minPrice", e.target.value)}
           placeholder="No minimum"
-          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900"
+          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 text-slate-900"
         />
       </div>
 
       <div className="w-full sm:w-1/3 flex flex-col gap-2">
         <label htmlFor="maxPrice" className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
-          <img src="/svgs/dollar.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
-          Max Price
+          <img src="/svgs/rupee.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
+          Max Price (₹)
         </label>
         <input
           id="maxPrice"
@@ -53,7 +53,7 @@ export default function FilterPanel({ filters, onChange }) {
           value={filters.maxPrice || ""}
           onChange={(e) => handleChange("maxPrice", e.target.value)}
           placeholder="No maximum"
-          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900"
+          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 text-slate-900"
         />
       </div>
     </div>

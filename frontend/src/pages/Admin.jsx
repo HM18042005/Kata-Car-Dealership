@@ -111,7 +111,7 @@ export default function Admin() {
             type="button"
             ref={triggerRef}
             onClick={() => openModal()}
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all shadow hover:shadow-md"
+            className="flex items-center justify-center gap-2 bg-teal-600 text-white px-5 py-3 rounded-xl font-bold hover:bg-teal-700 active:scale-[0.98] transition-all shadow hover:shadow-md"
           >
             <img src="/svgs/plus.svg" alt="" aria-hidden="true" className="w-5 h-5 invert" />
             Add Vehicle
@@ -151,7 +151,7 @@ export default function Admin() {
                 type="button"
                 onClick={closeModal}
                 aria-label="Close modal"
-                className="p-2 hover:bg-slate-200 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                className="p-2 hover:bg-slate-200 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
               >
                 <img src="/svgs/close.svg" alt="" aria-hidden="true" className="w-5 h-5 opacity-60" />
               </button>

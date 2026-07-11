@@ -22,7 +22,7 @@ export default function Navbar() {
         {user ? (
           <>
             {user.role === "admin" && (
-              <Link to="/admin" className="flex items-center gap-2 text-sm font-medium text-slate-900 hover:text-blue-600 transition-colors">
+              <Link to="/admin" className="flex items-center gap-2 text-sm font-medium text-slate-900 hover:text-teal-600 transition-colors">
                 <img src="/svgs/shield.svg" alt="" aria-hidden="true" className="w-5 h-5" />
                 Admin
               </Link>
@@ -33,7 +33,7 @@ export default function Navbar() {
             </button>
           </>
         ) : (
-          <Link to="/login" className="flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+          <Link to="/login" className="flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-800 transition-colors">
             <img src="/svgs/login.svg" alt="" aria-hidden="true" className="w-5 h-5" />
             Login
           </Link>

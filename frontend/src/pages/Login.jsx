@@ -31,8 +31,8 @@ export default function Login() {
       </div>
       <div className="bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-slate-100 w-full max-w-md">
         <div className="flex justify-center mb-6">
-          <div className="p-3 bg-blue-50 rounded-full">
-            <img src="/svgs/login.svg" alt="" aria-hidden="true" className="w-8 h-8" style={{ filter: "invert(30%) sepia(80%) saturate(2000%) hue-rotate(200deg)" }} />
+          <div className="p-3 bg-teal-50 rounded-full">
+            <img src="/svgs/login.svg" alt="" aria-hidden="true" className="w-8 h-8" style={{ filter: "invert(30%) sepia(80%) saturate(2000%) hue-rotate(150deg)" }} />
           </div>
         </div>
         <h1 className="text-2xl font-bold text-center text-slate-900 mb-2">Welcome Back</h1>
@@ -47,7 +47,7 @@ export default function Login() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900 transition-shadow"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 text-slate-900 transition-shadow"
             />
           </div>
           <div>
@@ -59,7 +59,7 @@ export default function Login() {
               aria-describedby={error ? "password-error" : undefined}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-full p-3 bg-slate-50 border rounded-xl focus:outline-none focus-visible:ring-2 text-slate-900 transition-shadow ${error ? "border-red-600 focus-visible:ring-red-600" : "border-slate-200 focus-visible:ring-blue-600"}`}
+              className={`w-full p-3 bg-slate-50 border rounded-xl focus:outline-none focus-visible:ring-2 text-slate-900 transition-shadow ${error ? "border-red-600 focus-visible:ring-red-600" : "border-slate-200 focus-visible:ring-teal-600"}`}
             />
             {error && (
               <p id="password-error" role="alert" className="text-red-600 text-sm mt-2 flex items-center gap-1.5 font-medium">
@@ -71,13 +71,13 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 mt-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+            className="w-full py-3.5 mt-2 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 active:scale-[0.98] transition-all flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
           >
             {loading ? <img src="/svgs/spinner.svg" alt="" aria-hidden="true" className="w-5 h-5 animate-spin invert" /> : "Sign In"}
           </button>
         </form>
         <p className="text-center text-sm text-slate-500 mt-8">
-          Don't have an account? <Link to="/register" className="text-blue-600 font-semibold hover:underline">Register here</Link>
+          Don't have an account? <Link to="/register" className="text-teal-600 font-semibold hover:underline">Register here</Link>
         </p>
       </div>
     </main>
