@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 
 export default function Modal({ title, onClose, children }) {
   const modalRef = useRef(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     const modalElement = modalRef.current;
@@ -15,7 +17,7 @@ export default function Modal({ title, onClose, children }) {
 
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        onClose();
+        onCloseRef.current();
       } else if (e.key === "Tab") {
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {

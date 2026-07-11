@@ -50,4 +50,25 @@ describe("Modal", () => {
 
     expect(onClose).toHaveBeenCalled();
   });
+
+  it("calls the current onClose on Escape, even after a re-render changes it", () => {
+    const firstOnClose = vi.fn();
+    const secondOnClose = vi.fn();
+    const { rerender } = render(
+      <Modal title="Test Modal" onClose={firstOnClose}>
+        <p>Modal body</p>
+      </Modal>
+    );
+
+    rerender(
+      <Modal title="Test Modal" onClose={secondOnClose}>
+        <p>Modal body</p>
+      </Modal>
+    );
+
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    expect(secondOnClose).toHaveBeenCalled();
+    expect(firstOnClose).not.toHaveBeenCalled();
+  });
 });
