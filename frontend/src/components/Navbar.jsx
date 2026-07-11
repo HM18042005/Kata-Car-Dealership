@@ -21,6 +21,10 @@ export default function Navbar() {
       <div className="flex items-center gap-6">
         {user ? (
           <>
+            <Link to="/orders" className="flex items-center gap-2 text-sm font-medium text-slate-900 hover:text-teal-600 transition-colors">
+              <img src="/svgs/cart.svg" alt="" aria-hidden="true" className="w-5 h-5" />
+              My Orders
+            </Link>
             {user.role === "admin" && (
               <Link to="/admin" className="flex items-center gap-2 text-sm font-medium text-slate-900 hover:text-teal-600 transition-colors">
                 <img src="/svgs/shield.svg" alt="" aria-hidden="true" className="w-5 h-5" />
