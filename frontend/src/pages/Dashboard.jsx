@@ -6,6 +6,7 @@ import VehicleCard from "../components/VehicleCard";
 import Spinner from "../components/Spinner";
 import EmptyState from "../components/EmptyState";
 import Toast from "../components/Toast";
+import ConfirmPurchaseModal from "../components/ConfirmPurchaseModal";
 import { useApi } from "../hooks/useApi";
 
 function buildQueryString(searchTerm, filters) {
@@ -22,6 +23,7 @@ export default function Dashboard() {
   const [filters, setFilters] = useState({});
   const [query, setQuery] = useState("");
   const [toast, setToast] = useState(null);
+  const [pendingVehicle, setPendingVehicle] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,15 +33,22 @@ export default function Dashboard() {
   }, [searchTerm, filters]);
 
   const { data: vehicles, loading, error, execute: refetch } = useApi(`/api/vehicles/search?${query}`, { auto: true });
-  const { execute: purchaseVehicle } = useApi("/api/vehicles", { method: "POST" });
+  const { execute: purchaseVehicle, loading: purchaseLoading } = useApi("/api/vehicles", { method: "POST" });
 
-  const handlePurchase = async (id) => {
+  const requestPurchase = (vehicle) => {
+    setPendingVehicle(vehicle);
+  };
+
+  const confirmPurchase = async () => {
+    const id = pendingVehicle.id;
     try {
       await purchaseVehicle({ path: `/api/vehicles/${id}/purchase` });
       setToast({ type: "success", message: "Purchase successful!" });
-      refetch().catch(() => {});
+      refetch();
     } catch (err) {
       setToast({ type: "error", message: "Failed to purchase vehicle." });
+    } finally {
+      setPendingVehicle(null);
     }
   };
 
@@ -71,12 +80,20 @@ export default function Dashboard() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {vehicles.map(vehicle => (
-                <VehicleCard key={vehicle.id} vehicle={vehicle} onPurchase={handlePurchase} />
+                <VehicleCard key={vehicle.id} vehicle={vehicle} onPurchase={requestPurchase} />
               ))}
             </div>
           )}
         </section>
       </main>
+      {pendingVehicle && (
+        <ConfirmPurchaseModal
+          vehicle={pendingVehicle}
+          loading={purchaseLoading}
+          onConfirm={confirmPurchase}
+          onCancel={() => setPendingVehicle(null)}
+        />
+      )}
       {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
     </div>
   );
