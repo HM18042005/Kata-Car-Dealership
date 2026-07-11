@@ -189,15 +189,32 @@ function Row({ vehicle, onEdit, onDelete, onRestock }) {
 
 ## Frontend testing note
 
-Vitest + React Testing Library, three behavior tests:
+Vitest + React Testing Library. The original three behavior tests, plus a
+focused set covering the other stateful/logic-bearing pieces — presentational
+components (`Navbar`, `Toast`, `Spinner`, `EmptyState`) and page-level
+integration are still out of scope, see Not included.
 
 - **Purchase disabled at quantity 0** — render `VehicleCard` with
   `vehicle.quantity === 0`; assert button is `disabled` and labeled
   "Out of stock".
 - **`RequireAuth` redirect** — render with `AuthContext` `{ token: null }`;
   assert `<Navigate>` to `/login`.
+- **`RequireAdmin` redirect** — render with `AuthContext` user role `"user"`;
+  assert `<Navigate>` to `/`. Also assert an `"admin"` user renders `children`.
+- **`AuthContext` persistence** — hydrate `{ token, user }` from `localStorage`
+  on mount; `login(token)` decodes the JWT, updates state, and writes
+  `localStorage`; `logout()` clears both.
+- **`VehicleForm` validation and submit** — `price`/`quantity` inputs are
+  `required`, `type="number"`, `min="0"`; submitting calls `onSubmit` with the
+  entered fields as a Vehicle-shaped payload.
+- **`VehicleTable` row callbacks** — `Edit` calls `onEdit(vehicle)`, `Delete`
+  calls `onDelete(vehicle.id)`; the inline restock amount input updates local
+  state and `Restock` calls `onRestock(vehicle.id, amount)`, disabled unless
+  `amount >= 1`.
 - **`useApi` 401 handling** — mock `fetch` to 401 with token set: assert
   `logout()` + navigate. With token null: assert `error` is set, no redirect.
+- **`useApi` success path** — `loading` is `true` while in flight and `false`
+  with `data` set after a `200`; `auto: true` calls `execute` on mount.
 
 ## Not included
 

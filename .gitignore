@@ -223,3 +223,4 @@ __marimo__/
 # Local planning and review artifacts
 /.superpowers/
 /docs-private/
+/.agents

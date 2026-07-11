@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import { AuthContext } from "../src/context/AuthContext";
@@ -63,5 +63,46 @@ describe("useApi", () => {
     await waitFor(() => expect(result.current.error).toBe("Bad credentials"));
     expect(logout).not.toHaveBeenCalled();
     expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  it("sets loading to true while in flight and false with the response data once it resolves", async () => {
+    let resolveFetch;
+    global.fetch.mockReturnValue(
+      new Promise((resolve) => {
+        resolveFetch = resolve;
+      })
+    );
+
+    const { result } = renderHook(() => useApi("/api/vehicles"), {
+      wrapper: wrapperFor({ token: "abc", logout: vi.fn() }),
+    });
+
+    let executePromise;
+    act(() => {
+      executePromise = result.current.execute();
+    });
+    expect(result.current.loading).toBe(true);
+
+    await act(async () => {
+      resolveFetch({ status: 200, ok: true, json: async () => ({ id: "1", make: "Toyota" }) });
+      await executePromise;
+    });
+
+    expect(result.current.loading).toBe(false);
+    expect(result.current.data).toEqual({ id: "1", make: "Toyota" });
+  });
+
+  it("calls execute automatically on mount when auto is true", async () => {
+    global.fetch.mockResolvedValue({
+      status: 200,
+      ok: true,
+      json: async () => [],
+    });
+
+    renderHook(() => useApi("/api/vehicles", { auto: true }), {
+      wrapper: wrapperFor({ token: "abc", logout: vi.fn() }),
+    });
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
   });
 });
