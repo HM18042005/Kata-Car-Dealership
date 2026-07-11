@@ -6,10 +6,11 @@ from pymongo import MongoClient
 
 
 load_dotenv()
-_client = MongoClient(
-    os.getenv("MONGO_URI", "mongodb://localhost:27017/car_dealership"),
-    tlsCAFile=certifi.where(),
-)
+_mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/car_dealership")
+# tlsCAFile implicitly enables TLS in pymongo, so it's only passed for
+# mongodb+srv:// (Atlas) URIs, never for a plain local mongodb:// connection.
+_tls_kwargs = {"tlsCAFile": certifi.where()} if _mongo_uri.startswith("mongodb+srv://") else {}
+_client = MongoClient(_mongo_uri, **_tls_kwargs)
 
 
 def get_database():
