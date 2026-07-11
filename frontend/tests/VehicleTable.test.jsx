@@ -56,4 +56,24 @@ describe("VehicleTable", () => {
 
     expect(screen.getByRole("button", { name: "Restock" })).toBeDisabled();
   });
+
+  it("shows the default empty message when there are no vehicles", () => {
+    render(<VehicleTable vehicles={[]} onEdit={vi.fn()} onDelete={vi.fn()} onRestock={vi.fn()} />);
+
+    expect(screen.getByText("No vehicles in inventory.")).toBeInTheDocument();
+  });
+
+  it("shows a custom empty message when emptyMessage is provided", () => {
+    render(
+      <VehicleTable
+        vehicles={[]}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+        onRestock={vi.fn()}
+        emptyMessage="No vehicles match your search criteria."
+      />
+    );
+
+    expect(screen.getByText("No vehicles match your search criteria.")).toBeInTheDocument();
+  });
 });

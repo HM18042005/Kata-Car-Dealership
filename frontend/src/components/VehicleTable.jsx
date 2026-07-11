@@ -46,11 +46,11 @@ function Row({ vehicle, onEdit, onDelete, onRestock }) {
   );
 }
 
-export default function VehicleTable({ vehicles, onEdit, onDelete, onRestock }) {
+export default function VehicleTable({ vehicles, onEdit, onDelete, onRestock, emptyMessage = "No vehicles in inventory." }) {
   if (vehicles.length === 0) {
     return <div className="p-12 text-center text-slate-500 border border-slate-200 rounded-xl bg-slate-50 flex flex-col items-center gap-4">
       <img src="/svgs/box.svg" alt="" aria-hidden="true" className="w-12 h-12 opacity-20" />
-      <span className="text-lg">No vehicles in inventory.</span>
+      <span className="text-lg">{emptyMessage}</span>
     </div>;
   }
 
