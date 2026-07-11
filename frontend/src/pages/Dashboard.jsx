@@ -44,7 +44,7 @@ export default function Dashboard() {
     try {
       await purchaseVehicle({ path: `/api/vehicles/${id}/purchase` });
       setToast({ type: "success", message: "Purchase successful!" });
-      refetch();
+      refetch().catch(() => {});
     } catch (err) {
       setToast({ type: "error", message: "Failed to purchase vehicle." });
     } finally {
