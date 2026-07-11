@@ -33,12 +33,13 @@ export function useApi(path, { method = "GET", body, auto = false } = {}) {
       return json;
     } catch (err) {
       setError(err.message);
+      throw err;
     } finally {
       setLoading(false);
     }
   }, [path, method, body, token, logout, navigate]);
 
-  useEffect(() => { if (auto) execute(); }, [auto, execute]);
+  useEffect(() => { if (auto) execute().catch(() => {}); }, [auto, execute]);
 
   return { data, loading, error, execute };
 }

@@ -58,7 +58,7 @@ describe("useApi", () => {
       wrapper: wrapperFor({ token: null, logout }),
     });
 
-    await result.current.execute();
+    await expect(result.current.execute()).rejects.toThrow("Bad credentials");
 
     await waitFor(() => expect(result.current.error).toBe("Bad credentials"));
     expect(logout).not.toHaveBeenCalled();
@@ -97,6 +97,34 @@ describe("useApi", () => {
       status: 200,
       ok: true,
       json: async () => [],
+    });
+
+    renderHook(() => useApi("/api/vehicles", { auto: true }), {
+      wrapper: wrapperFor({ token: "abc", logout: vi.fn() }),
+    });
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+  });
+
+  it("rejects (not just sets error) when the response is not ok", async () => {
+    global.fetch.mockResolvedValue({
+      status: 500,
+      ok: false,
+      json: async () => ({ detail: "Server error" }),
+    });
+
+    const { result } = renderHook(() => useApi("/api/vehicles"), {
+      wrapper: wrapperFor({ token: "abc", logout: vi.fn() }),
+    });
+
+    await expect(result.current.execute()).rejects.toThrow("Server error");
+  });
+
+  it("does not leave an unhandled rejection when an auto-fetch fails", async () => {
+    global.fetch.mockResolvedValue({
+      status: 500,
+      ok: false,
+      json: async () => ({ detail: "Server error" }),
     });
 
     renderHook(() => useApi("/api/vehicles", { auto: true }), {
