@@ -23,3 +23,10 @@ def get_vehicles():
     for field in ("make", "model", "category", "price"):
         vehicles.create_index(field)
     return vehicles
+
+
+def get_orders():
+    orders = get_database()["orders"]
+    orders.create_index("user_id")
+    orders.create_index([("created_at", -1)])
+    return orders

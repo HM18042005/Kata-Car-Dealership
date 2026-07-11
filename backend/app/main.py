@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.routers import auth, vehicles
+from app.routers import auth, orders, vehicles
 
 
 load_dotenv()
@@ -44,4 +44,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(auth.router)
+app.include_router(orders.router)
 app.include_router(vehicles.router)
