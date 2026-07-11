@@ -43,7 +43,7 @@ describe("useApi", () => {
     await result.current.execute();
 
     await waitFor(() => expect(logout).toHaveBeenCalled());
-    expect(mockNavigate).toHaveBeenCalledWith("/login");
+    expect(mockNavigate).toHaveBeenCalledWith("/login", { replace: true });
   });
 
   it("sets an error and does not redirect on a 401 when there is no token", async () => {

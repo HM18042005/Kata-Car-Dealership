@@ -16,7 +16,7 @@ export default function FilterPanel({ filters, onChange }) {
           id="category"
           value={filters.category || ""}
           onChange={(e) => handleChange("category", e.target.value)}
-          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-900"
+          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900"
         >
           <option value="">All Categories</option>
           {categories.map((cat) => (
@@ -37,7 +37,7 @@ export default function FilterPanel({ filters, onChange }) {
           value={filters.minPrice || ""}
           onChange={(e) => handleChange("minPrice", e.target.value)}
           placeholder="No minimum"
-          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-900"
+          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900"
         />
       </div>
 
@@ -53,7 +53,7 @@ export default function FilterPanel({ filters, onChange }) {
           value={filters.maxPrice || ""}
           onChange={(e) => handleChange("maxPrice", e.target.value)}
           placeholder="No maximum"
-          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-900"
+          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900"
         />
       </div>
     </div>

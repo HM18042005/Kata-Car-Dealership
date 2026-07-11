@@ -1,7 +1,7 @@
 # SVG / Image List — Car Dealership Frontend
 
 All 39 SVG files (38 entries; eye/eye-off share one row) were hand-authored
-as custom SVGs in `frontend/svgs/` — see `docs/frontend/design-system.md`
+as custom SVGs in `frontend/public/svgs/` — see `docs/frontend/design-system.md`
 for the icon conventions. An icon library (e.g. lucide-react / heroicons)
 remains the fallback if the set ever needs to grow quickly.
 

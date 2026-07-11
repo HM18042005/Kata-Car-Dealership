@@ -27,7 +27,7 @@ export default function Navbar() {
                 Admin
               </Link>
             )}
-            <button onClick={handleLogout} className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+            <button type="button" onClick={handleLogout} className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
               <img src="/svgs/logout.svg" alt="" aria-hidden="true" className="w-5 h-5" />
               Logout
             </button>

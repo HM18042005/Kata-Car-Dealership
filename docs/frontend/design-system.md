@@ -21,6 +21,11 @@ custom-property layer.
 No `tailwind.config.js` color overrides. Class names are canonical; Tailwind
 v4 rendered values can differ slightly from the listed sRGB approximations.
 
+`amber-600` names the low-stock warning hue, but the low-stock badge renders
+as an `amber-100` background with `amber-700` text — tints of the same amber
+family — so its small badge text clears the 4.5:1 AA contrast bar that
+`amber-600` text on a light chip would miss.
+
 ## Typography
 
 Use Tailwind's default `font-sans` stack with no font import.
@@ -33,7 +38,7 @@ Use Tailwind's default spacing scale and breakpoints: `sm` 640px, `md` 768px,
 
 ## Iconography
 
-Use the 39 SVGs in `frontend/svgs/`. The 8 category icons and 23 UI icons
+Use the 39 SVGs in `frontend/public/svgs/`. The 8 category icons and 23 UI icons
 use a 24×24 viewBox, `stroke="currentColor"`, `stroke-width="2"`, and no
 `fill`. Branding and illustrations use their own sizes/colors.
 
@@ -50,7 +55,7 @@ use a 24×24 viewBox, `stroke="currentColor"`, `stroke-width="2"`, and no
 | `van` | `van.svg` |
 | `electric` | `electric.svg` |
 
-The remaining files in `frontend/svgs/` split into three other groups:
+The remaining files in `frontend/public/svgs/` split into three other groups:
 
 - **UI icons** (`search.svg`, `filter.svg`, `sort.svg`, `cart.svg`,
   `plus.svg`, `pencil.svg`, `trash.svg`, `box.svg`, `shield.svg`,

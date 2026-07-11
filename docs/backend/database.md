@@ -45,7 +45,7 @@ Example document:
 
 `category` is one of the 8-value enum from the Vehicle JSON contract
 (`sedan | suv | hatchback | truck | coupe | convertible | van | electric`),
-matching the icon set in `frontend/svgs/`. `password_hash` never leaves this
+matching the icon set in `frontend/public/svgs/`. `password_hash` never leaves this
 collection — the register response returns `id`, `email`, `role` only.
 
 ## Indexes

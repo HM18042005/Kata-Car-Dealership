@@ -8,7 +8,7 @@ export default function SearchBar({ value, onChange }) {
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm text-slate-900 placeholder-slate-400 transition-shadow text-lg"
+        className="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus:border-transparent shadow-sm text-slate-900 placeholder-slate-400 transition-shadow text-lg"
         placeholder="Search vehicles by make..."
         aria-label="Search vehicles by make"
       />

@@ -26,15 +26,23 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     const stored = localStorage.getItem("token");
     if (!stored) return null;
-    const { sub, role } = decodePayload(stored);
-    return { sub, role };
+    try {
+      const { sub, role } = decodePayload(stored);
+      return { sub, role };
+    } catch {
+      return null; // corrupt/absent token → treat as logged out, don't crash
+    }
   });
 
   function login(newToken) {
-    const { sub, role } = decodePayload(newToken);
-    localStorage.setItem("token", newToken);
-    setToken(newToken);
-    setUser({ sub, role });
+    try {
+      const { sub, role } = decodePayload(newToken);
+      localStorage.setItem("token", newToken);
+      setToken(newToken);
+      setUser({ sub, role });
+    } catch (e) {
+      console.error("Invalid token format", e);
+    }
   }
 
   function logout() {
@@ -84,23 +92,24 @@ export function useApi(path, { method = "GET", body, auto = false } = {}) {
     try {
       const reqBody = overrides.body ?? body;
       const res = await fetch(overrides.path ?? path, {
-        method,
+        method: overrides.method ?? method,
         headers: {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         body: reqBody ? JSON.stringify(reqBody) : undefined,
       });
-      if (res.status === 401 && token) { logout(); navigate("/login"); return; }
-      const json = res.status === 204 ? null : await res.json();
+      if (res.status === 401 && token) { logout(); navigate("/login", { replace: true }); return; }
+      const json = res.status === 204 ? null : await res.json().catch(() => null);
       if (!res.ok) throw new Error(json?.detail || "Request failed");
       setData(json);
+      return json;
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [path, method, body, token]);
+  }, [path, method, body, token, logout, navigate]);
 
   useEffect(() => { if (auto) execute(); }, [auto, execute]);
 
@@ -109,8 +118,16 @@ export function useApi(path, { method = "GET", body, auto = false } = {}) {
 ```
 
 401 handling: if a request returns 401 *and* `token` exists, `logout()` +
-navigate to `/login`. If `token` is null (e.g. the login request itself),
-the error falls through to `setError(json.detail)`.
+navigate to `/login` (with `{ replace: true }`, so the expired session isn't
+left in history). If `token` is null (e.g. the login request itself), the
+error falls through to `setError(json.detail)`.
+
+On success `execute()` returns the parsed JSON (Login reads `access_token`
+from the login response this way); on a caught error it returns `undefined`
+and sets `error`. `res.json()` is guarded with `.catch(() => null)` so a
+non-JSON error body surfaces the generic `"Request failed"` message rather
+than a JSON-parse error. `overrides.method` lets a caller override the HTTP
+method per `execute()` call.
 
 ## Data flow
 
@@ -148,8 +165,14 @@ const { data: vehicles, loading, error, execute: refetch } =
 
 const { execute: purchaseVehicle } = useApi("/api/vehicles", { method: "POST" });
 
-function handlePurchase(id) {
-  purchaseVehicle({ path: `/api/vehicles/${id}/purchase` }).then(refetch);
+async function handlePurchase(id) {
+  try {
+    await purchaseVehicle({ path: `/api/vehicles/${id}/purchase` });
+    setToast({ type: "success", message: "Purchase successful!" });
+    refetch();
+  } catch {
+    setToast({ type: "error", message: "Failed to purchase vehicle." });
+  }
 }
 ```
 

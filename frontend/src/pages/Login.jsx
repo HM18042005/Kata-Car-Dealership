@@ -17,8 +17,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await execute({ body: { email, password } });
-    if (data?.token) {
-      login(data.token);
+    if (data?.access_token) {
+      login(data.access_token);
       navigate("/", { replace: true });
     }
   };
@@ -47,7 +47,7 @@ export default function Login() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-900 transition-shadow"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 text-slate-900 transition-shadow"
             />
           </div>
           <div>
@@ -59,7 +59,7 @@ export default function Login() {
               aria-describedby={error ? "password-error" : undefined}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-full p-3 bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 text-slate-900 transition-shadow ${error ? "border-red-600 focus:ring-red-600" : "border-slate-200 focus:ring-blue-600"}`}
+              className={`w-full p-3 bg-slate-50 border rounded-xl focus:outline-none focus-visible:ring-2 text-slate-900 transition-shadow ${error ? "border-red-600 focus-visible:ring-red-600" : "border-slate-200 focus-visible:ring-blue-600"}`}
             />
             {error && (
               <p id="password-error" role="alert" className="text-red-600 text-sm mt-2 flex items-center gap-1.5 font-medium">

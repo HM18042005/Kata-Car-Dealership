@@ -2,7 +2,7 @@ export default function VehicleCard({ vehicle, onPurchase }) {
   const isOutOfStock = vehicle.quantity === 0;
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col h-full group">
+    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm transition-shadow hover:shadow-lg hover:-translate-y-0.5 flex flex-col h-full group">
       <div className="p-6 flex-grow flex flex-col relative">
         {/* Low stock warning */}
         {!isOutOfStock && vehicle.quantity <= 2 && (
@@ -41,6 +41,7 @@ export default function VehicleCard({ vehicle, onPurchase }) {
 
       <div className="p-4 bg-slate-50 border-t border-slate-200">
         <button
+          type="button"
           disabled={isOutOfStock}
           onClick={() => onPurchase(vehicle.id)}
           className={`w-full py-3 px-4 rounded-lg flex items-center justify-center gap-2 font-semibold transition-all ${
