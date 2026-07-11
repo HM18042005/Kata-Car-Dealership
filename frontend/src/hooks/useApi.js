@@ -30,6 +30,7 @@ export function useApi(path, { method = "GET", body, auto = false } = {}) {
       const json = res.status === 204 ? null : await res.json().catch(() => null);
       if (!res.ok) throw new Error(json?.detail || "Request failed");
       setData(json);
+      return json;
     } catch (err) {
       setError(err.message);
     } finally {
