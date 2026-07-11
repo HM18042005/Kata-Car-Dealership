@@ -27,7 +27,7 @@ export default function VehicleCard({ vehicle, onPurchase }) {
         <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
           <div className="flex flex-col">
             <span className="text-xs text-slate-500 font-medium">Price</span>
-            <span className="text-2xl font-bold text-slate-900">${vehicle.price.toLocaleString()}</span>
+            <span className="text-2xl font-bold text-slate-900">₹{vehicle.price.toLocaleString("en-IN")}</span>
           </div>
           <div className="flex flex-col items-end">
             <span className="text-xs text-slate-500 font-medium">In Stock</span>

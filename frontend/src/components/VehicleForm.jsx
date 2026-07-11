@@ -40,7 +40,7 @@ export default function VehicleForm({ initial, onSubmit }) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="price" className="block text-sm font-semibold text-slate-700 mb-1.5">Price</label>
+          <label htmlFor="price" className="block text-sm font-semibold text-slate-700 mb-1.5">Price (₹)</label>
           <input id="price" required type="number" min="0" value={price} onChange={e => setPrice(e.target.value)} className="w-full p-3 border border-slate-200 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-600 focus:outline-none bg-slate-50 text-slate-900 transition-shadow" />
         </div>
         <div>

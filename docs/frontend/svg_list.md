@@ -49,7 +49,7 @@ remains the fallback if the set ever needs to grow quickly.
 | 28 | Alert circle (error) | Toasts, form errors |
 | 29 | Alert triangle (warning) | Low-stock warning |
 | 30 | Spinner / loader | Async loading states |
-| 31 | Dollar / price tag | Price display, price-range filter |
+| 31 | Rupee (₹) / price tag | Price display, price-range filter |
 | 32 | Layers / stock count | Quantity-in-stock display |
 
 ## Illustrations & placeholders

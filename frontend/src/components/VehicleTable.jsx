@@ -7,7 +7,7 @@ function Row({ vehicle, onEdit, onDelete, onRestock }) {
       <td className="p-4 text-slate-900 font-medium">{vehicle.make}</td>
       <td className="p-4 text-slate-900">{vehicle.model}</td>
       <td className="p-4 text-slate-500 uppercase text-xs font-semibold tracking-wider">{vehicle.category}</td>
-      <td className="p-4 text-slate-900 font-medium">${vehicle.price.toLocaleString()}</td>
+      <td className="p-4 text-slate-900 font-medium">₹{vehicle.price.toLocaleString("en-IN")}</td>
       <td className="p-4">
         <span className={`px-2 py-1 rounded-full text-xs font-semibold ${vehicle.quantity === 0 ? "bg-red-100 text-red-700" : vehicle.quantity <= 2 ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"}`}>
           {vehicle.quantity} in stock

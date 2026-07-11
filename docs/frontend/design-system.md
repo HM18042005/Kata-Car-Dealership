@@ -61,7 +61,7 @@ The remaining files in `frontend/public/svgs/` split into three other groups:
   `plus.svg`, `pencil.svg`, `trash.svg`, `box.svg`, `shield.svg`,
   `user.svg`, `login.svg`, `logout.svg`, `eye.svg`, `eye-off.svg`,
   `menu.svg`, `close.svg`, `chevron.svg`, `check.svg`, `alert-circle.svg`,
-  `alert-triangle.svg`, `spinner.svg`, `dollar.svg`, `layers.svg`) — same
+  `alert-triangle.svg`, `spinner.svg`, `rupee.svg`, `layers.svg`) — same
   24×24/`currentColor` convention as the category icons, used for actions,
   nav, and status.
 - **Branding** (`logo.svg` at 24×24, `favicon.svg` at 16×16) — both use

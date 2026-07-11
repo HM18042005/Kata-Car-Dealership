@@ -27,8 +27,8 @@ export default function FilterPanel({ filters, onChange }) {
       
       <div className="w-full sm:w-1/3 flex flex-col gap-2">
         <label htmlFor="minPrice" className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
-          <img src="/svgs/dollar.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
-          Min Price
+          <img src="/svgs/rupee.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
+          Min Price (₹)
         </label>
         <input
           id="minPrice"
@@ -43,8 +43,8 @@ export default function FilterPanel({ filters, onChange }) {
 
       <div className="w-full sm:w-1/3 flex flex-col gap-2">
         <label htmlFor="maxPrice" className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
-          <img src="/svgs/dollar.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
-          Max Price
+          <img src="/svgs/rupee.svg" alt="" aria-hidden="true" className="w-4 h-4 opacity-60" />
+          Max Price (₹)
         </label>
         <input
           id="maxPrice"
