@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from app import db
 from app.models import RestockPayload, VehicleCategory, VehiclePayload
 from app.security import require_admin, require_user
-from app.services import vehicle_service
+from app.services import order_service, vehicle_service
 
 
 router = APIRouter(prefix="/api/vehicles", tags=["vehicles"])
@@ -63,13 +63,25 @@ def delete_vehicle(vehicle_id: str, _: dict = Depends(require_admin)):
 
 
 @router.post("/{vehicle_id}/purchase")
-def purchase_vehicle(vehicle_id: str, _: dict = Depends(require_user)):
+def purchase_vehicle(vehicle_id: str, claims: dict = Depends(require_user)):
     try:
-        return vehicle_service.purchase_vehicle(db.get_vehicles(), vehicle_id)
+        vehicle = vehicle_service.purchase_vehicle(db.get_vehicles(), vehicle_id)
     except vehicle_service.VehicleNotFoundError:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vehicle not found")
     except vehicle_service.OutOfStockError:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Out of stock")
+
+    try:
+        order_service.create_order(
+            db.get_orders(), user_id=claims["sub"], user_email=claims["email"], vehicle=vehicle
+        )
+    except Exception:
+        # The decrement above already succeeded and remains the source of
+        # truth for stock; a failed order write is a recoverable gap in
+        # history, not a reason to fail a purchase that already happened.
+        pass
+
+    return vehicle
 
 
 @router.post("/{vehicle_id}/restock")

@@ -79,6 +79,7 @@ def test_login_returns_a_bearer_token_on_success(client):
     payload = decode_access_token(body["access_token"])
     assert payload["sub"] == str(stored["_id"])
     assert payload["role"] == stored["role"]
+    assert payload["email"] == stored["email"]
 
 
 def test_login_with_an_unknown_email_returns_401(client):

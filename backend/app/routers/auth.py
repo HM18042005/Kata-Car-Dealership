@@ -28,6 +28,8 @@ def login(payload: LoginPayload):
     except auth_service.InvalidCredentialsError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     return {
-        "access_token": create_access_token({"sub": str(user["_id"]), "role": user["role"]}),
+        "access_token": create_access_token(
+            {"sub": str(user["_id"]), "role": user["role"], "email": user["email"]}
+        ),
         "token_type": "bearer",
     }

@@ -1,4 +1,4 @@
-from app.db import get_vehicles
+from app.db import get_orders, get_users, get_vehicles
 
 
 def test_purchase_decrements_quantity_by_one(client, auth_headers, sample_vehicle):
@@ -34,6 +34,18 @@ def test_purchase_out_of_stock_vehicle_returns_409(client, auth_headers):
     )
     assert response.status_code == 409
     assert response.json()["detail"] == "Out of stock"
+
+
+def test_purchase_creates_an_order_record(client, auth_headers, sample_vehicle):
+    client.post(f"/api/vehicles/{sample_vehicle}/purchase", headers=auth_headers)
+
+    buyer = get_users().find_one({"email": "buyer@example.com"})
+    order = get_orders().find_one({"user_id": str(buyer["_id"])})
+    assert order is not None
+    assert order["vehicle_id"] == sample_vehicle
+    assert order["make"] == "Toyota"
+    assert order["price"] == 21000
+    assert order["quantity"] == 1
 
 
 def test_restock_increments_quantity_by_the_given_amount(
