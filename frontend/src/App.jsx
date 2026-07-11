@@ -4,6 +4,7 @@ import RequireAdmin from './components/RequireAdmin'
 import Dashboard from './pages/Dashboard'
 import Orders from './pages/Orders'
 import Admin from './pages/Admin'
+import AdminOrders from './pages/AdminOrders'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import NotFound from './pages/NotFound'
@@ -16,6 +17,7 @@ export default function App() {
       <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>} />
       <Route path="/orders" element={<RequireAuth><Orders /></RequireAuth>} />
       <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
+      <Route path="/admin/orders" element={<RequireAdmin><AdminOrders /></RequireAdmin>} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
