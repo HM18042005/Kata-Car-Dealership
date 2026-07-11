@@ -35,6 +35,18 @@ def test_create_vehicle_with_a_negative_price_returns_422(client, auth_headers):
     assert response.status_code == 422
 
 
+def test_create_vehicle_with_a_non_finite_price_returns_422(client, auth_headers):
+    response = client.post(
+        "/api/vehicles",
+        content=(
+            '{"make":"Toyota","model":"Corolla","category":"sedan",'
+            '"price":1e309,"quantity":3}'
+        ),
+        headers={**auth_headers, "Content-Type": "application/json"},
+    )
+    assert response.status_code == 422
+
+
 def test_create_vehicle_with_a_negative_quantity_returns_422(client, auth_headers):
     payload = {**VEHICLE_PAYLOAD, "quantity": -1}
     response = client.post("/api/vehicles", json=payload, headers=auth_headers)

@@ -224,3 +224,4 @@ __marimo__/
 /.superpowers/
 /docs-private/
 /.agents
+/frontend/node_modules

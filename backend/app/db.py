@@ -1,0 +1,25 @@
+import os
+
+from dotenv import load_dotenv
+from pymongo import MongoClient
+
+
+load_dotenv()
+_client = MongoClient(os.getenv("MONGO_URI", "mongodb://localhost:27017/car_dealership"))
+
+
+def get_database():
+    return _client.get_default_database(default="car_dealership")
+
+
+def get_users():
+    users = get_database()["users"]
+    users.create_index("email", unique=True)
+    return users
+
+
+def get_vehicles():
+    vehicles = get_database()["vehicles"]
+    for field in ("make", "model", "category", "price"):
+        vehicles.create_index(field)
+    return vehicles

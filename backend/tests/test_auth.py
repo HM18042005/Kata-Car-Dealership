@@ -1,5 +1,8 @@
+import pytest
+
 from app.db import get_users
 from app.security import decode_access_token, verify_password
+from app.services.auth_service import AdminEmailTakenError, seed_admin
 
 
 def test_register_returns_201_with_id_email_and_user_role(client):
@@ -103,3 +106,24 @@ def test_login_with_the_wrong_password_returns_the_same_401_message_as_an_unknow
     )
     assert wrong_password.status_code == 401
     assert wrong_password.json()["detail"] == unknown_email.json()["detail"]
+
+
+def test_seed_admin_is_idempotent():
+    users = get_users()
+    assert seed_admin(users, "admin@example.com", "adminpass123") is True
+    assert seed_admin(users, "admin@example.com", "adminpass123") is False
+    assert users.count_documents({"email": "admin@example.com", "role": "admin"}) == 1
+
+
+def test_seed_admin_rejects_a_regular_users_email(client):
+    client.post(
+        "/api/auth/register",
+        json={"email": "buyer@example.com", "password": "hunter2"},
+    )
+    with pytest.raises(AdminEmailTakenError):
+        seed_admin(get_users(), "buyer@example.com", "adminpass123")
+
+
+def test_seed_admin_rejects_the_example_password():
+    with pytest.raises(ValueError):
+        seed_admin(get_users(), "admin@example.com", "change-me")
