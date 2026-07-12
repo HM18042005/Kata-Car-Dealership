@@ -126,4 +126,26 @@ describe("Admin", () => {
       expect(screen.getByText("No vehicles match your search criteria.")).toBeInTheDocument()
     );
   });
+
+  it("shows the Users tab and hides the Add Vehicle button when Users is selected", async () => {
+    renderAdmin();
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByRole("button", { name: "Users" }));
+
+    await waitFor(() =>
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining("/api/users"), expect.anything())
+    );
+    expect(screen.queryByRole("button", { name: /add vehicle/i })).not.toBeInTheDocument();
+  });
+
+  it("switches back to the Inventory tab and shows the Add Vehicle button again", async () => {
+    renderAdmin();
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByRole("button", { name: "Users" }));
+    fireEvent.click(screen.getByRole("button", { name: "Inventory" }));
+
+    expect(screen.getByRole("button", { name: /add vehicle/i })).toBeInTheDocument();
+  });
 });
