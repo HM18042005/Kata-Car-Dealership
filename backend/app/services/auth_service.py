@@ -1,5 +1,7 @@
 from datetime import datetime, timezone
 
+from bson import ObjectId
+from bson.errors import InvalidId
 from pymongo.errors import DuplicateKeyError
 
 from app.security import hash_password, verify_password
@@ -17,6 +19,14 @@ class InvalidCredentialsError(Exception):
 
 
 class AdminEmailTakenError(Exception):
+    pass
+
+
+class UserNotFoundError(Exception):
+    pass
+
+
+class CannotModifySelfError(Exception):
     pass
 
 
@@ -79,5 +89,47 @@ def seed_admin(users, email: str, password: str) -> bool:
     return True
 
 
+def list_users(users) -> list[dict]:
+    return [serialize_user(user) for user in users.find()]
+
+
+def promote_user(users, user_id: str) -> dict:
+    updated = users.find_one_and_update(
+        {"_id": _object_id(user_id)},
+        {"$set": {"role": "admin"}},
+        return_document=True,
+    )
+    if updated is None:
+        raise UserNotFoundError
+    return serialize_user(updated)
+
+
+def demote_user(users, user_id: str, caller_id: str) -> dict:
+    if user_id == caller_id:
+        raise CannotModifySelfError
+    updated = users.find_one_and_update(
+        {"_id": _object_id(user_id)},
+        {"$set": {"role": "user"}},
+        return_document=True,
+    )
+    if updated is None:
+        raise UserNotFoundError
+    return serialize_user(updated)
+
+
+def delete_user(users, user_id: str, caller_id: str) -> None:
+    if user_id == caller_id:
+        raise CannotModifySelfError
+    if not users.delete_one({"_id": _object_id(user_id)}).deleted_count:
+        raise UserNotFoundError
+
+
 def serialize_user(user: dict) -> dict:
     return {"id": str(user["_id"]), "email": user["email"], "role": user["role"]}
+
+
+def _object_id(value: str) -> ObjectId:
+    try:
+        return ObjectId(value)
+    except (InvalidId, TypeError):
+        raise UserNotFoundError from None
