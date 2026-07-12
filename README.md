@@ -7,6 +7,13 @@ The project was built test-first (TDD, Red → Green → Refactor) with a fully 
 **Repository:** https://github.com/HM18042005/Kata-Car-Dealership
 **Live Demo:** https://kata-car-dealership.vercel.app
 
+Demo admin login (view/manage inventory, restock, see all orders):
+```
+Email:    kata@dealership.com
+Password: s2FPCraI0nf2XU
+```
+The live demo is seeded with 40 sample vehicles across all 8 categories. Registering a new account signs you in as a regular customer.
+
 ---
 
 ## Table of Contents
